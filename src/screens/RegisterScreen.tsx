@@ -45,7 +45,7 @@ const RegisterScreen: React.FC<Props> = () => {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("biker");
+  const [role, setRole] = useState(roleList[0].value);
 
   return (
     <View>
@@ -66,7 +66,7 @@ const RegisterScreen: React.FC<Props> = () => {
         data={roleList.map(({ value }) => value as any)}
         onSelect={(item) => setRole(item)}
         onChangeSearchInputText={() => {}}
-        defaultValue={"user"}
+        defaultValue={roleList[0].value}
       />
       <Button
         onPress={() => attemptRegister(email, password, role)}

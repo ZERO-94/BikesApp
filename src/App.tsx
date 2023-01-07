@@ -11,28 +11,43 @@ import { onAuthStateChanged } from "firebase/auth";
 import * as FirebaseAuthTypes from "@firebase/auth-types";
 import BikerStack from "./routes/BikerStack";
 import UserStack from "./routes/UserStack";
+import {
+  FSUser,
+  getUser,
+} from "./services/firebase/firestore/userStore/userStore.operations";
 
 export type Props = {};
 
 type User = FirebaseAuthTypes.User | null;
 
-export const UserContext = createContext<User>(null);
+export const UserContext = createContext<FSUser | null>(null);
 
 const App: React.FC<Props> = () => {
-  const [user, setUser] = useState<User>(null);
+  const [user, setUser] = useState<FSUser | null>(null);
 
   useEffect(() => {
     onAuthStateChanged(authentication, (user) => {
-      setUser(user as FirebaseAuthTypes.User);
+      console.log(user);
+      if (user) {
+        getUser(user?.email as string)
+          .then((res) => {
+            setUser(res);
+          })
+          .catch((e: any) => {});
+      } else {
+        setUser(null);
+      }
     });
   }, []);
+
+  console.log(user);
 
   return (
     <SafeAreaProvider initialMetrics={initialWindowMetrics}>
       <NavigationContainer>
         {user ? (
           <UserContext.Provider value={user}>
-            {user.email === "test2@gmail.com" ? ( //auto biker
+            {user.role === "biker" ? ( //auto biker
               <BikerStack />
             ) : (
               <UserStack />

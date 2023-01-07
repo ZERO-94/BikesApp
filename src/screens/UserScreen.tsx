@@ -1,8 +1,6 @@
 import { signOut } from "firebase/auth";
 import React, { useState } from "react";
-import { Button } from "react-native";
-import { Text } from "react-native";
-import { View } from "react-native";
+import { Button, Text, View } from "react-native";
 import { authentication } from "../services/firebase/firebase-config";
 
 export type Props = {};

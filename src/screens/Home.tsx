@@ -16,6 +16,8 @@ const Home: React.FC<Props> = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const navigation = useNavigation();
+
   const attemptSignIn = async () => {
     try {
       const result = await signInWithEmailAndPassword(
@@ -45,6 +47,10 @@ const Home: React.FC<Props> = () => {
         onChangeText={setPassword}
       />
       <Button onPress={() => attemptSignIn()} title={"Sign in"} />
+      <Button
+        onPress={() => navigation.navigate("Register" as never)}
+        title={"Register now!"}
+      />
     </View>
   );
 };

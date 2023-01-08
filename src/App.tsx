@@ -14,10 +14,10 @@ import {
   FSUser,
   getUser,
 } from "./services/firebase/firestore/userStore/userStore.operations";
+import { createNotificationConnection } from "./services/firebase/firestore/notificationConnectionStore/notificationConnectionStore.operations";
 import { withExpoSnack } from "nativewind";
 import * as Notifications from "expo-notifications";
-import * as Device from "expo-device";
-import { Platform, Alert } from "react-native";
+import registerForPushNotificationsAsync from "./services/notificationService/registerForPushNotifcation";
 
 export type Props = {};
 
@@ -34,9 +34,12 @@ Notifications.setNotificationHandler({
 const App: React.FC<Props> = () => {
   const [user, setUser] = useState<FSUser | null>(null);
   const [notification, setNotification] = useState({});
+  const [expoPushToken, setExpoPushToken] = useState("");
 
   useEffect(() => {
-    registerForPushNotificationsAsync();
+    registerForPushNotificationsAsync().then((token) => {
+      setExpoPushToken(token as string);
+    });
     Notifications.addNotificationReceivedListener(handleNotification);
     Notifications.addNotificationResponseReceivedListener(
       handleNotificationResponse
@@ -57,7 +60,19 @@ const App: React.FC<Props> = () => {
       if (user) {
         getUser(user?.email as string)
           .then((res) => {
-            setUser(res);
+            registerForPushNotificationsAsync()
+              .then((token) => {
+                createNotificationConnection({
+                  owner: user?.email as string,
+                  updatedAt: new Date(Date.now()).toUTCString(),
+                  token: token as string,
+                }).catch((e) => {
+                  console.log(e);
+                });
+              })
+              .finally(() => {
+                setUser(res);
+              });
           })
           .catch((e: any) => {});
       } else {
@@ -86,36 +101,3 @@ const App: React.FC<Props> = () => {
 };
 
 export default withExpoSnack(App);
-
-async function registerForPushNotificationsAsync() {
-  let token;
-
-  if (Platform.OS === "android") {
-    await Notifications.setNotificationChannelAsync("default", {
-      name: "default",
-      importance: Notifications.AndroidImportance.MAX,
-      vibrationPattern: [0, 250, 250, 250],
-      lightColor: "#FF231F7C",
-    });
-  }
-
-  if (Device.isDevice) {
-    const { status: existingStatus } =
-      await Notifications.getPermissionsAsync();
-    let finalStatus = existingStatus;
-    if (existingStatus !== "granted") {
-      const { status } = await Notifications.requestPermissionsAsync();
-      finalStatus = status;
-    }
-    if (finalStatus !== "granted") {
-      Alert.alert("Failed to get push token for push notification!");
-      return;
-    }
-    token = (await Notifications.getExpoPushTokenAsync()).data;
-    console.log(token);
-  } else {
-    Alert.alert("Must use physical device for Push Notifications");
-  }
-
-  return token;
-}

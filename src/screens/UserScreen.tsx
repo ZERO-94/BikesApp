@@ -46,6 +46,10 @@ const UserScreen: React.FC<Props> = () => {
           onPress={() => navigation.navigate("CreateRequestScreen" as never)}
         />
       )}
+      <Button
+        title="Test notification"
+        onPress={() => navigation.navigate("TestNotificationScreen" as never)}
+      />
       <Button title="Logout" onPress={() => signOut(authentication)} />
     </View>
   );

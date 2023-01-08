@@ -23,8 +23,8 @@ export type FSRequest = {
 
 const COLLECTION_NAME = "requests";
 
-export const createRequest = async (user: FSRequest) => {
-  await setDoc(doc(collection(firestore, COLLECTION_NAME)), user);
+export const createRequest = async (request: FSRequest) => {
+  await setDoc(doc(collection(firestore, COLLECTION_NAME)), request);
 };
 
 export const getUserCurrentRequest = async (

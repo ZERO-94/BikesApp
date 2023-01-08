@@ -14,23 +14,11 @@ import {
   FSUser,
   getUser,
 } from "./services/firebase/firestore/userStore/userStore.operations";
-import messaging from "@react-native-firebase/messaging";
 import { Alert } from "react-native";
 
 export type Props = {};
 
 export const UserContext = createContext<FSUser | null>(null);
-
-const requestUserPermission = async () => {
-  const authStatus = await messaging().requestPermission();
-  const enabled =
-    authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-    authStatus === messaging.AuthorizationStatus.PROVISIONAL;
-
-  if (enabled) {
-    console.log("Authorization status:", authStatus);
-  }
-};
 
 const App: React.FC<Props> = () => {
   const [user, setUser] = useState<FSUser | null>(null);
@@ -49,22 +37,6 @@ const App: React.FC<Props> = () => {
         setUser(null);
       }
     });
-  }, []);
-
-  useEffect(() => {
-    requestUserPermission().then((res) => {
-      messaging()
-        .getToken()
-        .then((token) => {
-          console.log(token);
-        });
-    });
-
-    const unsubscribe = messaging().onMessage(async (remoteMessage) => {
-      Alert.alert("A new FCM message arrived!", JSON.stringify(remoteMessage));
-    });
-
-    return unsubscribe;
   }, []);
 
   return (

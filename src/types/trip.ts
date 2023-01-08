@@ -8,4 +8,5 @@ export type FSTripRequest = {
   createdAt: string;
   status: string;
   bookingTime: string;
+  id: string;
 } & DocumentData;

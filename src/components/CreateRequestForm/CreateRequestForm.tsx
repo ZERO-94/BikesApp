@@ -1,4 +1,4 @@
-import { View, TextInput, Button } from "react-native";
+import { View, Button } from "react-native";
 import React, { useState } from "react";
 import SelectDropdown from "react-native-select-dropdown";
 import { Text } from "react-native";
@@ -22,13 +22,12 @@ const CreateRequestForm: React.FC<Props> = () => {
   const attemptCreateRequest = async () => {
     try {
       await createRequest({
-        createdBy: user?.email as string,
+        biker: user?.email as string,
         fromLocation: fromLocation,
         toLocation: toLocation,
         createdAt: new Date(Date.now()).toUTCString(),
         status: "WAITING",
         bookingTime: bookingTime.toUTCString(),
-        biker: null,
       });
       navigation.goBack();
     } catch (e: any) {}
@@ -50,7 +49,7 @@ const CreateRequestForm: React.FC<Props> = () => {
         onChangeSearchInputText={() => {}}
         defaultValue={locations[1]}
       />
-      <Text>Pick me at: </Text>
+      <Text>Picking time: </Text>
       <RNDateTimePicker
         mode="datetime"
         value={bookingTime}

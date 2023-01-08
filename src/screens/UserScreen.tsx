@@ -42,8 +42,8 @@ const UserScreen: React.FC<Props> = () => {
         <RequestDetail data={currentRequest} />
       ) : (
         <Button
-          title="Create request"
-          onPress={() => navigation.navigate("CreateRequestScreen" as never)}
+          title="Trip list"
+          onPress={() => navigation.navigate("BikerRequestListScreen" as never)}
         />
       )}
       <Button title="Logout" onPress={() => signOut(authentication)} />

@@ -9,7 +9,7 @@ const BikerRequestListScreen: React.FC<Props> = () => {
 
   return (
     <View>
-      <Text>My requet list</Text>
+      <Text>Trip list</Text>
     </View>
   );
 };

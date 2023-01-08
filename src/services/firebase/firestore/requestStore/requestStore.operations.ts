@@ -12,13 +12,12 @@ import {
 import { firestore } from "../../firebase-config";
 
 export type FSRequest = {
-  createdBy: string;
+  biker: string | null;
   fromLocation: string;
   toLocation: string;
   createdAt: string;
   status: string;
   bookingTime: string;
-  biker: string | null;
 } & DocumentData;
 
 const COLLECTION_NAME = "requests";

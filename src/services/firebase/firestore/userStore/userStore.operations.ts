@@ -1,5 +1,12 @@
-import { DocumentData } from "firebase/firestore";
-import firestore from "@react-native-firebase/firestore";
+import {
+  collection,
+  addDoc,
+  getDoc,
+  doc,
+  setDoc,
+  DocumentData,
+} from "firebase/firestore";
+import { firestore } from "../../firebase-config";
 
 export type FSUser = {
   email: string;
@@ -9,14 +16,14 @@ export type FSUser = {
 const COLLECTION_NAME = "users";
 
 export const registerUser = async (user: FSUser) => {
-  await firestore().collection(COLLECTION_NAME).doc(user.email).set(user);
+  await setDoc(doc(collection(firestore, COLLECTION_NAME), user.email), user);
 };
 
 export const getUser = async (email: string): Promise<FSUser | null> => {
-  const docRef = firestore().collection(COLLECTION_NAME).doc(email);
-  const docSnap = await docRef.get();
+  const docRef = doc(firestore, COLLECTION_NAME, email);
+  const docSnap = await getDoc(docRef);
 
-  if (docSnap.exists) {
+  if (docSnap.exists()) {
     return docSnap.data() as FSUser;
   } else {
     return null;

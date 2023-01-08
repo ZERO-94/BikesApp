@@ -1,19 +1,25 @@
 import {
   collection,
   doc,
-  setDoc,
+  addDoc,
   DocumentData,
   where,
   getDocs,
   query,
+  updateDoc,
 } from "firebase/firestore";
 import { firestore } from "../../firebase-config";
 import { FSTripRequest } from "trip";
+import { FSUser } from "../userStore/userStore.operations";
 
 const COLLECTION_NAME = "requests";
 
 export const createRequest = async (user: FSTripRequest) => {
-  await setDoc(doc(collection(firestore, COLLECTION_NAME)), user);
+  const docRef = await addDoc(collection(firestore, COLLECTION_NAME), user);
+
+  await updateDoc(docRef, {
+    id: docRef.id,
+  });
 };
 
 export const getRequestList = async (): Promise<FSTripRequest | null> => {
@@ -32,4 +38,17 @@ export const getRequestList = async (): Promise<FSTripRequest | null> => {
   }
 
   return requestList;
+};
+
+export const requestTrip = async (
+  email: string | undefined,
+  requestId: string
+) => {
+  console.log("a");
+  const docRef = doc(firestore, COLLECTION_NAME, requestId);
+
+  await updateDoc(docRef, {
+    user: email,
+    status: "REQUEST",
+  });
 };

@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { View, Button, Text } from "react-native";
 import { FSTripRequest } from "trip";
 import { styled } from "nativewind";
+import { UserContext } from "../../App";
+import { requestTrip } from "../../services/firebase/firestore/requestStore/requestStore.operations";
 
 export type Props = {
   tripData: FSTripRequest;
@@ -11,6 +13,7 @@ const TextStyled = styled(Text);
 const ViewStyled = styled(View);
 
 const TripRequestCard: React.FC<Props> = ({ tripData }) => {
+  const user = useContext(UserContext);
   return (
     <ViewStyled className="my-4 p-5 bg-blue-100 shadow rounded">
       <TextStyled className="mb-1">
@@ -29,7 +32,10 @@ const TripRequestCard: React.FC<Props> = ({ tripData }) => {
         {tripData?.bookingTime}
       </TextStyled>
       <ViewStyled>
-        <Button title="Request" />
+        <Button
+          title="Request"
+          onPress={() => requestTrip(user?.email, tripData.id)}
+        />
       </ViewStyled>
     </ViewStyled>
   );

@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { View, Button, Text } from "react-native";
-import { FSTripRequest } from "trip";
+import { FSTripRequest } from "../../types/trip";
 import { styled } from "nativewind";
 import { UserContext } from "../../App";
 import { requestTrip } from "../../services/firebase/firestore/requestStore/requestStore.operations";

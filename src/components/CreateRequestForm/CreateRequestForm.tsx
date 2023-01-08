@@ -22,13 +22,14 @@ const CreateRequestForm: React.FC<Props> = () => {
   const attemptCreateRequest = async () => {
     try {
       await createRequest({
-        user: null,
+        user: "",
         biker: user?.email as string,
         fromLocation: fromLocation,
         toLocation: toLocation,
         createdAt: new Date(Date.now()).toUTCString(),
         status: "WAITING",
         bookingTime: bookingTime.toUTCString(),
+        id: "",
       });
       navigation.goBack();
     } catch (e: any) {}

@@ -15,6 +15,7 @@ import {
   getUser,
 } from "./services/firebase/firestore/userStore/userStore.operations";
 import { withExpoSnack } from "nativewind";
+import { NativeBaseProvider } from "native-base";
 
 export type Props = {};
 
@@ -40,21 +41,23 @@ const App: React.FC<Props> = () => {
   }, []);
 
   return (
-    <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-      <NavigationContainer>
-        {user ? (
-          <UserContext.Provider value={user}>
-            {user.role === "biker" ? ( //auto biker
-              <BikerStack />
-            ) : (
-              <UserStack />
-            )}
-          </UserContext.Provider>
-        ) : (
-          <HomeStack />
-        )}
-      </NavigationContainer>
-    </SafeAreaProvider>
+    <NativeBaseProvider>
+      <SafeAreaProvider initialMetrics={initialWindowMetrics}>
+        <NavigationContainer>
+          {user ? (
+            <UserContext.Provider value={user}>
+              {user.role === "biker" ? ( //auto biker
+                <BikerStack />
+              ) : (
+                <UserStack />
+              )}
+            </UserContext.Provider>
+          ) : (
+            <HomeStack />
+          )}
+        </NavigationContainer>
+      </SafeAreaProvider>
+    </NativeBaseProvider>
   );
 };
 

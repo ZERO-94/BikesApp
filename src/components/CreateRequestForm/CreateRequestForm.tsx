@@ -22,6 +22,7 @@ const CreateRequestForm: React.FC<Props> = () => {
   const attemptCreateRequest = async () => {
     try {
       await createRequest({
+        user: null,
         biker: user?.email as string,
         fromLocation: fromLocation,
         toLocation: toLocation,

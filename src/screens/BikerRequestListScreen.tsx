@@ -1,15 +1,26 @@
 import { useNavigation } from "@react-navigation/native";
-import React, { useState } from "react";
-import { Button, Text, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text } from "react-native";
+import { getRequestList } from "../services/firebase/firestore/requestStore/requestStore.operations";
+import { FSTripRequest } from "trip";
+import TripRequestCard from "../components/TripRequestCard/TripRequestCard";
 
 export type Props = {};
 
 const BikerRequestListScreen: React.FC<Props> = () => {
-  const navigation = useNavigation();
+  const [requestList, setRequestList] = useState<FSTripRequest[] | null>([]);
+
+  useEffect(() => {
+    getRequestList().then((requestListData: FSTripRequest[]) => {
+      setRequestList(requestListData);
+    });
+  }, []);
 
   return (
-    <View>
-      <Text>Trip list</Text>
+    <View style={{ justifyContent: "center", alignItems: "center" }}>
+      {requestList?.map((tripData, index) => (
+        <TripRequestCard tripData={tripData} key={index} />
+      ))}
     </View>
   );
 };

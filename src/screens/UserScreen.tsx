@@ -1,9 +1,9 @@
 import { useNavigation } from "@react-navigation/native";
 import { signOut } from "firebase/auth";
-import { Avatar, Box, Center, Flex } from "native-base";
+import { Avatar, Box, Center, Flex, Image, Button } from "native-base";
 import React, { useState } from "react";
 import { useContext } from "react";
-import { Button, Pressable, Text, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import { UserContext } from "../App";
 import { authentication } from "../services/firebase/firebase-config";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -15,7 +15,7 @@ const UserScreen: React.FC<Props> = () => {
   const navigation = useNavigation();
 
   return (
-    <View style={{ paddingHorizontal: 10 }}>
+    <View style={{ paddingHorizontal: 20 }}>
       <Flex
         direction="row"
         justifyContent={"space-between"}
@@ -47,10 +47,47 @@ const UserScreen: React.FC<Props> = () => {
           </Pressable>
         </Center>
       </Flex>
-      <Button
-        title="Trip list"
-        onPress={() => navigation.navigate("BikerRequestListScreen" as never)}
-      />
+      <Flex
+        marginTop={5}
+        borderRadius="10"
+        alignItems="center"
+        justifyContent="center"
+        backgroundColor="white"
+      >
+        <Flex justifyContent={"center"} alignItems="center">
+          <Text style={{ fontSize: 18, textAlign: "center", lineHeight: 26 }}>
+            Need to go somewhere from
+          </Text>
+          <Text
+            style={{
+              fontSize: 18,
+              textAlign: "center",
+              fontWeight: "bold",
+              lineHeight: 26,
+            }}
+          >
+            FPT University?
+          </Text>
+        </Flex>
+        <Center h="58%" my={3}>
+          <Image
+            size={200}
+            borderRadius={100}
+            source={{
+              uri: "https://wallpaperaccess.com/full/317501.jpg",
+            }}
+            alt="Alternate Text"
+          />
+        </Center>
+        <Button
+          borderRadius={50}
+          w="80%"
+          colorScheme="indigo"
+          onPress={() => navigation.navigate("BikerRequestListScreen" as never)}
+        >
+          Check trip list
+        </Button>
+      </Flex>
     </View>
   );
 };

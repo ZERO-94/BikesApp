@@ -14,7 +14,7 @@ import {
   FSUser,
   getUser,
 } from "./services/firebase/firestore/userStore/userStore.operations";
-import { Alert } from "react-native";
+import { withExpoSnack } from "nativewind";
 
 export type Props = {};
 
@@ -58,4 +58,4 @@ const App: React.FC<Props> = () => {
   );
 };
 
-export default App;
+export default withExpoSnack(App);

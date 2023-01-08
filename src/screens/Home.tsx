@@ -8,8 +8,11 @@ import { Platform, StyleSheet, View } from "react-native";
 import { Button } from "react-native";
 import { TextInput } from "react-native";
 import { authentication } from "../services/firebase/firebase-config";
+import { styled } from "nativewind";
 
 export type Props = {};
+
+const StyledTextInput = styled(TextInput);
 
 const Home: React.FC<Props> = () => {
   const [loading, setLoading] = useState(false);
@@ -33,14 +36,14 @@ const Home: React.FC<Props> = () => {
 
   return (
     <View>
-      <TextInput
-        style={{ margin: 5 }}
+      <StyledTextInput
+        className="my-5"
         placeholder="Email"
         value={email}
         onChangeText={setEmail}
       />
-      <TextInput
-        style={{ margin: 5 }}
+      <StyledTextInput
+        className="my-5"
         secureTextEntry={true}
         placeholder="Password"
         value={password}

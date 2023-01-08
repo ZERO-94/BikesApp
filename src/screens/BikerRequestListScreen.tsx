@@ -17,7 +17,7 @@ const BikerRequestListScreen: React.FC<Props> = () => {
   const [requestList, setRequestList] = useState<FSTripRequest[] | null>([]);
 
   useEffect(() => {
-    getRequestList().then((requestListData: FSTripRequest[]) => {
+    getRequestList().then((requestListData: FSTripRequest[] | null) => {
       setRequestList(requestListData);
     });
   }, []);

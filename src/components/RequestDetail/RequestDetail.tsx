@@ -1,9 +1,9 @@
 import React from "react";
 import { View, Text } from "react-native";
-import { FSRequest } from "../../services/firebase/firestore/requestStore/requestStore.operations";
+import { FSTripRequest } from "../../types/trip";
 
 export type Props = {
-  data: FSRequest;
+  data: FSTripRequest;
 };
 
 const RequestDetail: React.FC<Props> = ({ data }) => {

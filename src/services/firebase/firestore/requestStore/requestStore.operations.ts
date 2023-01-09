@@ -10,7 +10,6 @@ import {
 } from "firebase/firestore";
 import { firestore } from "../../firebase-config";
 import { FSTripRequest } from "../../../../types/trip";
-import { FSUser } from "../userStore/userStore.operations";
 
 const COLLECTION_NAME = "requests";
 

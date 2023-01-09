@@ -9,7 +9,6 @@ import { authentication } from "../services/firebase/firebase-config";
 export type Props = {};
 
 const UserScreen: React.FC<Props> = () => {
-  const user = useContext(UserContext);
   const navigation = useNavigation();
 
   return (

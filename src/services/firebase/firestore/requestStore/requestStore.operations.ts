@@ -68,3 +68,20 @@ export const getRequestedTrips = async (email: string | undefined) => {
 
   return requestList;
 };
+
+export const updateTripStatus = async (status: string, tripId: string) => {
+  const docRef = doc(firestore, COLLECTION_NAME, tripId);
+
+  await updateDoc(docRef, {
+    status,
+  });
+};
+
+export const rejectTrip = async (tripId: string) => {
+  const docRef = doc(firestore, COLLECTION_NAME, tripId);
+
+  await updateDoc(docRef, {
+    user: null,
+    status: "WAITING",
+  });
+};

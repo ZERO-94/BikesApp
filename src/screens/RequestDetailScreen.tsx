@@ -1,24 +1,43 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, Button } from "react-native";
 import { FSTripRequest } from "../types/trip";
 import { ScreenComponent } from "@react-navigation";
-
+import {
+  updateTripStatus,
+  rejectTrip,
+} from "../services/firebase/firestore/requestStore/requestStore.operations";
 export type Props = {
-  tripData: FSTripRequest;
+  navigation: any;
 };
 
-const RequestDetailScreen: ScreenComponent<Props> = (
-  tripData: FSTripRequest
-) => {
-  const data = tripData.route.params;
+const RequestDetailScreen: ScreenComponent<Props> = (navigation: any) => {
+  console.log(navigation.navigation);
+  const data = navigation?.route.params as FSTripRequest;
 
   return (
     <View>
       <Text>Your current request:</Text>
+      <Text>{`Request user: ${data.user}`}</Text>
       <Text>{`From: ${data.fromLocation}`}</Text>
       <Text>{`To: ${data.toLocation}`}</Text>
       <Text>{`Status: ${data.status}`}</Text>
       <Text>{`Booking time: ${data.bookingTime}`}</Text>
+      <View>
+        <Button
+          title="ACCEPT"
+          onPress={() => {
+            updateTripStatus("ACCEPTED", data.id);
+            navigation.navigation.navigate("BikerScreen");
+          }}
+        />
+        <Button
+          title="REJECT"
+          onPress={() => {
+            rejectTrip(data.id);
+            navigation.navigation.navigate("BikerScreen");
+          }}
+        />
+      </View>
     </View>
   );
 };

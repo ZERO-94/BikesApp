@@ -37,13 +37,11 @@ const Home: React.FC<Props> = () => {
   return (
     <View>
       <StyledTextInput
-        className="my-5"
         placeholder="Email"
         value={email}
         onChangeText={setEmail}
       />
       <StyledTextInput
-        className="my-5"
         secureTextEntry={true}
         placeholder="Password"
         value={password}

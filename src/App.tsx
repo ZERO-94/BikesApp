@@ -18,6 +18,7 @@ import { createNotificationConnection } from "./services/firebase/firestore/noti
 import { withExpoSnack } from "nativewind";
 import * as Notifications from "expo-notifications";
 import registerForPushNotificationsAsync from "./services/notificationService/registerForPushNotifcation";
+import { NativeBaseProvider } from "native-base";
 
 export type Props = {};
 

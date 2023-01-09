@@ -4,6 +4,8 @@ import BikerScreen from "../screens/BikerScreen";
 import CreateRequestScreen from "../screens/CreateRequestScreen";
 import MyRequestListScreen from "../screens/MyRequestListScreen";
 import RequestDetailScreen from "../screens/RequestDetailScreen";
+import AcceptedRequestListScreen from "../screens/AcceptedRequestListScreen";
+import OnGoingTripScreen from "../screens/OnGoingTripScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -23,6 +25,11 @@ const BikerStack: React.FC<{}> = () => {
         name="RequestDetailScreen"
         component={RequestDetailScreen}
       />
+      <Stack.Screen
+        name="AcceptedRequestListScreen"
+        component={AcceptedRequestListScreen}
+      />
+      <Stack.Screen name="OnGoingTripScreen" component={OnGoingTripScreen} />
     </Stack.Navigator>
   );
 };

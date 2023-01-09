@@ -49,12 +49,15 @@ export const requestTrip = async (
   });
 };
 
-export const getRequestedTrips = async (email: string | undefined) => {
+export const getRequestedTripsByStatus = async (
+  email: string | undefined,
+  status: string
+) => {
   const requestList = [] as FSTripRequest[];
 
   const q = query(
     collection(firestore, COLLECTION_NAME),
-    where("status", "==", "REQUEST"),
+    where("status", "==", status),
     where("biker", "==", email)
   );
 

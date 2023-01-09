@@ -22,6 +22,12 @@ const BikerScreen: React.FC<Props> = () => {
         title="My requested trip"
         onPress={() => navigation.navigate("MyRequestListScreen" as never)}
       />
+      <Button
+        title="My accepted trip"
+        onPress={() =>
+          navigation.navigate("AcceptedRequestListScreen" as never)
+        }
+      />
       <Button title="Logout" onPress={() => signOut(authentication)} />
     </View>
   );

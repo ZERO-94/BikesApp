@@ -7,12 +7,12 @@ import TripRequestedCard from "../components/TripRequestedCard/TripRequestedCard
 
 export type Props = {};
 
-const MyRequestListScreen: React.FC<Props> = () => {
+const AcceptedRequestListScreen: React.FC<Props> = () => {
   const user = useContext(UserContext);
   const [requestList, setRequestList] = useState<FSTripRequest[] | null>([]);
 
   useEffect(() => {
-    getRequestedTripsByStatus(user?.email, "WAITING").then(
+    getRequestedTripsByStatus(user?.email, "ACCEPTED").then(
       (requestListData: FSTripRequest[]) => {
         setRequestList(requestListData);
       }
@@ -28,4 +28,4 @@ const MyRequestListScreen: React.FC<Props> = () => {
   );
 };
 
-export default MyRequestListScreen;
+export default AcceptedRequestListScreen;

@@ -20,24 +20,35 @@ const RequestDetailScreen: ScreenComponent<Props> = (navigation: any) => {
       <Text>{`Request user: ${data.user}`}</Text>
       <Text>{`From: ${data.fromLocation}`}</Text>
       <Text>{`To: ${data.toLocation}`}</Text>
-      <Text>{`Status: ${data.status}`}</Text>
       <Text>{`Booking time: ${data.bookingTime}`}</Text>
-      <View>
-        <Button
-          title="ACCEPT"
-          onPress={() => {
-            updateTripStatus("ACCEPTED", data.id);
-            navigation.navigation.navigate("BikerScreen");
-          }}
-        />
-        <Button
-          title="REJECT"
-          onPress={() => {
-            rejectTrip(data.id);
-            navigation.navigation.navigate("BikerScreen");
-          }}
-        />
-      </View>
+      {data.status === "REQUEST" ? (
+        <View>
+          <Button
+            title="ACCEPT"
+            onPress={() => {
+              updateTripStatus("ACCEPTED", data.id);
+              navigation.navigation.navigate("BikerScreen");
+            }}
+          />
+          <Button
+            title="REJECT"
+            onPress={() => {
+              rejectTrip(data.id);
+              navigation.navigation.navigate("BikerScreen");
+            }}
+          />
+        </View>
+      ) : (
+        <View>
+          <Button
+            title="START TRIP"
+            onPress={() => {
+              updateTripStatus("ON-GOING", data.id);
+              navigation.navigation.navigate("OnGoingTripScreen", data);
+            }}
+          />
+        </View>
+      )}
     </View>
   );
 };

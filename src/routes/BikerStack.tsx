@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import BikerScreen from "../screens/BikerScreen";
 import CreateRequestScreen from "../screens/CreateRequestScreen";
 import MyRequestListScreen from "../screens/MyRequestListScreen";
+import RequestDetailScreen from "../screens/RequestDetailScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -17,6 +18,10 @@ const BikerStack: React.FC<{}> = () => {
       <Stack.Screen
         name="MyRequestListScreen"
         component={MyRequestListScreen}
+      />
+      <Stack.Screen
+        name="RequestDetailScreen"
+        component={RequestDetailScreen}
       />
     </Stack.Navigator>
   );

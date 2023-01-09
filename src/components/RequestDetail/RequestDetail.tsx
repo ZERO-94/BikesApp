@@ -1,19 +1,20 @@
 import React from "react";
 import { View, Text } from "react-native";
-import { FSTripRequest } from "../../types/trip";
+import { FSTripRequest } from "../types/trip";
 
 export type Props = {
-  data: FSTripRequest;
+  route: never;
 };
 
-const RequestDetail: React.FC<Props> = ({ data }) => {
+const RequestDetail: React.FC<Props> = ({ route }) => {
+  const { tripData } = route as FSTripRequest;
   return (
     <View>
       <Text>Your current request:</Text>
-      <Text>{`From: ${data.toLocation}`}</Text>
-      <Text>{`To: ${data.toLocation}`}</Text>
-      <Text>{`Status: ${data.status}`}</Text>
-      <Text>{`Booking time: ${data.bookingTime}`}</Text>
+      <Text>{`From: ${tripData.fromLocation}`}</Text>
+      <Text>{`To: ${tripData.toLocation}`}</Text>
+      <Text>{`Status: ${tripData.status}`}</Text>
+      <Text>{`Booking time: ${tripData.bookingTime}`}</Text>
     </View>
   );
 };

@@ -15,7 +15,11 @@ const TripRequestCard: React.FC<Props> = ({ tripData }) => {
   const navigation = useNavigation();
 
   return (
-    <Pressable onPress={() => navigation.navigate("RequestDetail" as never)}>
+    <Pressable
+      onPress={() =>
+        navigation.navigate("RequestDetailScreen" as never, tripData as never)
+      }
+    >
       <ViewStyled className="my-4 p-5 bg-blue-100 shadow rounded">
         <TextStyled className="mb-1">
           <TextStyled className="font-bold">User:</TextStyled> {tripData?.user}

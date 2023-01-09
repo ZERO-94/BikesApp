@@ -1,10 +1,12 @@
 import { useNavigation } from "@react-navigation/native";
 import { signOut } from "firebase/auth";
+import { Avatar, Box, Center, Flex, Image, Button } from "native-base";
 import React, { useState } from "react";
 import { useContext } from "react";
-import { Button, Text, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import { UserContext } from "../App";
 import { authentication } from "../services/firebase/firebase-config";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 export type Props = {};
 
@@ -12,13 +14,79 @@ const UserScreen: React.FC<Props> = () => {
   const navigation = useNavigation();
 
   return (
-    <View>
-      <Text>User screen</Text>
-      <Button
-        title="Trip list"
-        onPress={() => navigation.navigate("BikerRequestListScreen" as never)}
-      />
-      <Button title="Logout" onPress={() => signOut(authentication)} />
+    <View style={{ paddingHorizontal: 20 }}>
+      <Flex
+        direction="row"
+        justifyContent={"space-between"}
+        style={{
+          backgroundColor: "white",
+          marginTop: 14,
+          paddingHorizontal: 12,
+          paddingVertical: 10,
+          borderRadius: 50,
+        }}
+      >
+        <Flex direction="row">
+          <Avatar
+            size={50}
+            source={{
+              uri: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+            }}
+          ></Avatar>
+          <Flex justifyContent={"center"} style={{ marginLeft: 14 }}>
+            <Text style={{ fontWeight: "bold", fontSize: 16 }}>
+              Welcome back!
+            </Text>
+            <Text style={{ fontSize: 12 }}>Hope you have a great day!</Text>
+          </Flex>
+        </Flex>
+        <Center w="44">
+          <Pressable onPress={() => signOut(authentication)}>
+            <MaterialCommunityIcons name="logout" size={24} color="black" />
+          </Pressable>
+        </Center>
+      </Flex>
+      <Flex
+        marginTop={5}
+        borderRadius="10"
+        alignItems="center"
+        justifyContent="center"
+        backgroundColor="white"
+      >
+        <Flex justifyContent={"center"} alignItems="center">
+          <Text style={{ fontSize: 18, textAlign: "center", lineHeight: 26 }}>
+            Need to go somewhere from
+          </Text>
+          <Text
+            style={{
+              fontSize: 18,
+              textAlign: "center",
+              fontWeight: "bold",
+              lineHeight: 26,
+            }}
+          >
+            FPT University?
+          </Text>
+        </Flex>
+        <Center h="58%" my={3}>
+          <Image
+            size={200}
+            borderRadius={100}
+            source={{
+              uri: "https://wallpaperaccess.com/full/317501.jpg",
+            }}
+            alt="Alternate Text"
+          />
+        </Center>
+        <Button
+          borderRadius={50}
+          w="80%"
+          colorScheme="indigo"
+          onPress={() => navigation.navigate("BikerRequestListScreen" as never)}
+        >
+          Check trip list
+        </Button>
+      </Flex>
     </View>
   );
 };

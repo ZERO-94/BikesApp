@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
-import React, { useEffect, useState } from "react";
-import { View, Text, FlatList } from "react-native";
+import React, { useEffect, useState, useContext } from "react";
+import { View, Text } from "react-native";
 import {
   getRequestList,
   requestTrip,
@@ -8,12 +8,13 @@ import {
 } from "../services/firebase/firestore/requestStore/requestStore.operations";
 import { FSTripRequest } from "../types/trip";
 import TripRequestCard from "../components/TripRequestCard/TripRequestCard";
-import { Box } from "native-base";
+import { Box, FlatList } from "native-base";
 import { UserContext } from "../App";
 
 export type Props = {};
 
 const BikerRequestListScreen: React.FC<Props> = () => {
+  const user = useContext(UserContext);
   const navigation = useNavigation();
   const [requestList, setRequestList] = useState<FSTripRequest[] | null>([]);
 
@@ -43,7 +44,7 @@ const BikerRequestListScreen: React.FC<Props> = () => {
                   tripData={item}
                   key={index}
                   onPress={() => {
-                    updateTripStatus("ACCEPTED", item.id);
+                    requestTrip(user?.email, item.id);
                     navigation.navigate("UserScreen" as never);
                   }}
                 />

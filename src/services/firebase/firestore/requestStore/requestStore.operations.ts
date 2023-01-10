@@ -71,6 +71,28 @@ export const getRequestedTripsByStatus = async (
   return requestList;
 };
 
+export const getUserRequestedTripsByStatus = async (
+  email: string | undefined,
+  statusList: string[]
+) => {
+  const requestList = [] as FSTripRequest[];
+  const q = query(
+    collection(firestore, COLLECTION_NAME),
+    where("status", "in", statusList),
+    where("user", "==", email)
+  );
+
+  const querySnap = await getDocs(q);
+
+  if (querySnap.docs.length > 0) {
+    querySnap.forEach((doc) => {
+      requestList.push(doc.data() as FSTripRequest);
+    });
+  }
+
+  return requestList;
+};
+
 export const updateTripStatus = async (status: string, tripId: string) => {
   const docRef = doc(firestore, COLLECTION_NAME, tripId);
 

@@ -2,7 +2,15 @@ import { signOut } from "firebase/auth";
 import React, { useContext, useState } from "react";
 import { Text, Pressable } from "react-native";
 import { View } from "react-native";
-import { Avatar, Box, Center, Flex, Image, Button } from "native-base";
+import {
+  Avatar,
+  Box,
+  Center,
+  Flex,
+  Image,
+  Button,
+  ScrollView,
+} from "native-base";
 import { authentication } from "../services/firebase/firebase-config";
 import { useNavigation } from "@react-navigation/native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -15,7 +23,7 @@ const BikerScreen: React.FC<Props> = () => {
   const user = useContext(UserContext);
 
   return (
-    <View style={{ paddingHorizontal: 20 }}>
+    <ScrollView style={{ paddingHorizontal: 20 }}>
       <Flex
         direction="row"
         justifyContent={"space-between"}
@@ -103,7 +111,7 @@ const BikerScreen: React.FC<Props> = () => {
           Create trip
         </Button>
       </Flex>
-    </View>
+    </ScrollView>
   );
 };
 

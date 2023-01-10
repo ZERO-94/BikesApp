@@ -4,6 +4,7 @@ import UserScreen from "../screens/UserScreen";
 import BikerRequestListScreen from "../screens/BikerRequestListScreen";
 import TestNotificationScreen from "../screens/TestNotificationScreen";
 import RequestDetailScreen from "../screens/RequestDetailScreen";
+import UserRequestListScreen from "../screens/UserRequestListScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -14,6 +15,10 @@ const UserStack: React.FC<{}> = () => {
       <Stack.Screen
         name="BikerRequestListScreen"
         component={BikerRequestListScreen}
+      />
+      <Stack.Screen
+        name="UserRequestListScreen"
+        component={UserRequestListScreen}
       />
       <Stack.Screen
         name="TestNotificationScreen"

@@ -1,10 +1,13 @@
-async function sendPushNotification(expoPushToken: string) {
+async function sendPushNotification(
+  expoPushToken: string,
+  title: string,
+  messageStr: string
+) {
   const message = {
     to: expoPushToken,
     sound: "default",
-    title: "Original Title",
-    body: "And here is the body!",
-    data: { someData: "goes here" },
+    title: title,
+    body: messageStr,
   };
 
   await fetch("https://exp.host/--/api/v2/push/send", {

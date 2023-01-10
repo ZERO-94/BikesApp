@@ -1,6 +1,14 @@
 import { useNavigation } from "@react-navigation/native";
 import { signOut } from "firebase/auth";
-import { Avatar, Box, Center, Flex, Image, Button } from "native-base";
+import {
+  Avatar,
+  Box,
+  Center,
+  Flex,
+  Image,
+  Button,
+  ScrollView,
+} from "native-base";
 import React, { useState } from "react";
 import { useContext } from "react";
 import { Pressable, Text, View } from "react-native";
@@ -14,7 +22,7 @@ const UserScreen: React.FC<Props> = () => {
   const navigation = useNavigation();
 
   return (
-    <View style={{ paddingHorizontal: 20 }}>
+    <ScrollView style={{ paddingHorizontal: 20 }}>
       <Flex
         direction="row"
         justifyContent={"space-between"}
@@ -46,8 +54,22 @@ const UserScreen: React.FC<Props> = () => {
           </Pressable>
         </Center>
       </Flex>
+      <Center marginTop={3}>
+        <Flex direction="row">
+          <Button
+            w={"100%"}
+            colorScheme="indigo"
+            borderRadius={50}
+            onPress={() =>
+              navigation.navigate("UserRequestListScreen" as never)
+            }
+          >
+            My requested trip
+          </Button>
+        </Flex>
+      </Center>
       <Flex
-        marginTop={5}
+        marginTop={3}
         borderRadius="10"
         alignItems="center"
         justifyContent="center"
@@ -87,7 +109,7 @@ const UserScreen: React.FC<Props> = () => {
           Check trip list
         </Button>
       </Flex>
-    </View>
+    </ScrollView>
   );
 };
 

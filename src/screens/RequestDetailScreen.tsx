@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, Button } from "react-native";
 import { FSTripRequest } from "../types/trip";
 import { ScreenComponent } from "@react-navigation";
@@ -13,6 +13,46 @@ export type Props = {
 const RequestDetailScreen: ScreenComponent<Props> = (navigation: any) => {
   console.log(navigation.navigation);
   const data = navigation?.route.params as FSTripRequest;
+  const [currentStatus, setCurrentStatus] = useState<string>(data.status);
+
+  const buttonType: { [key: string]: any } = {
+    REQUEST: (
+      <View>
+        <Button
+          title="ACCEPT"
+          onPress={() => {
+            updateTripStatus("ACCEPTED", data.id);
+            navigation.navigation.navigate("BikerScreen");
+          }}
+        />
+        <Button
+          title="REJECT"
+          onPress={() => {
+            rejectTrip(data.id);
+            navigation.navigation.navigate("BikerScreen");
+          }}
+        />
+      </View>
+    ),
+    ACCEPTED: (
+      <Button
+        title="START TRIP"
+        onPress={() => {
+          updateTripStatus("ONGOING", data.id);
+          setCurrentStatus("ONGOING");
+        }}
+      />
+    ),
+    ONGOING: (
+      <Button
+        title="FINISH TRIP"
+        onPress={() => {
+          updateTripStatus("FINISHED", data.id);
+          navigation.navigation.navigate("BikerScreen");
+        }}
+      />
+    ),
+  };
 
   return (
     <View>
@@ -21,34 +61,8 @@ const RequestDetailScreen: ScreenComponent<Props> = (navigation: any) => {
       <Text>{`From: ${data.fromLocation}`}</Text>
       <Text>{`To: ${data.toLocation}`}</Text>
       <Text>{`Booking time: ${data.bookingTime}`}</Text>
-      {data.status === "REQUEST" ? (
-        <View>
-          <Button
-            title="ACCEPT"
-            onPress={() => {
-              updateTripStatus("ACCEPTED", data.id);
-              navigation.navigation.navigate("BikerScreen");
-            }}
-          />
-          <Button
-            title="REJECT"
-            onPress={() => {
-              rejectTrip(data.id);
-              navigation.navigation.navigate("BikerScreen");
-            }}
-          />
-        </View>
-      ) : (
-        <View>
-          <Button
-            title="START TRIP"
-            onPress={() => {
-              updateTripStatus("ON-GOING", data.id);
-              navigation.navigation.navigate("OnGoingTripScreen", data);
-            }}
-          />
-        </View>
-      )}
+      <Text>{`Status: ${currentStatus}`}</Text>
+      {buttonType[currentStatus]}
     </View>
   );
 };

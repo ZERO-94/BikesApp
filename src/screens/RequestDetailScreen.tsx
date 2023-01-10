@@ -7,7 +7,7 @@ import {
   rejectTrip,
   requestTrip,
 } from "../services/firebase/firestore/requestStore/requestStore.operations";
-import { Center, Image, Button } from "native-base";
+import { Center, Image, Button, Flex } from "native-base";
 import { styled } from "nativewind";
 import { UserContext } from "../App";
 
@@ -113,14 +113,16 @@ const RequestDetailScreen: ScreenComponent<Props> = (navigation: any) => {
         />
       </Center>
       <ViewStyled className="p-4">
-        <TextStyled className="font-bold text-xl">
-          Your current request
-        </TextStyled>
-        {data.user ? <Text>{`Request user: ${data.user}`}</Text> : null}
-        <TextStyled className="mt-1">{`From: ${data.fromLocation}`}</TextStyled>
-        <TextStyled className="mt-1">{`To: ${data.toLocation}`}</TextStyled>
-        <TextStyled className="mt-1">{`Booking time: ${data.bookingTime}`}</TextStyled>
-        <TextStyled className="mt-1 mb-10">{`Status: ${currentStatus}`}</TextStyled>
+        <Flex backgroundColor="white" p="4" borderRadius={5}>
+          <TextStyled className="font-bold text-xl">
+            Your current request
+          </TextStyled>
+          {data.user ? <Text>{`Request user: ${data.user}`}</Text> : null}
+          <TextStyled className="mt-1">{`From: ${data.fromLocation}`}</TextStyled>
+          <TextStyled className="mt-1">{`To: ${data.toLocation}`}</TextStyled>
+          <TextStyled className="mt-1">{`Booking time: ${data.bookingTime}`}</TextStyled>
+          <TextStyled className="mt-1 mb-10">{`Status: ${currentStatus}`}</TextStyled>
+        </Flex>
         {buttonType[currentStatus]}
       </ViewStyled>
     </View>

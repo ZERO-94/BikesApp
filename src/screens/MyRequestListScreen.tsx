@@ -53,7 +53,12 @@ const MyRequestListScreen: React.FC<Props> = () => {
                 <TripRequestCard
                   tripData={item}
                   key={index}
-                  onPress={() => {}}
+                  onPress={() =>
+                    navigation.navigate(
+                      "RequestDetailScreen" as never,
+                      item as never
+                    )
+                  }
                 />
               </Box>
             );

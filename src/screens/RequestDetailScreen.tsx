@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { View, Text } from "react-native";
 import { FSTripRequest } from "../types/trip";
 import { ScreenComponent } from "@react-navigation";
 import {
   updateTripStatus,
   rejectTrip,
+  requestTrip,
 } from "../services/firebase/firestore/requestStore/requestStore.operations";
 import { Center, Image, Button } from "native-base";
 import { styled } from "nativewind";
+import { UserContext } from "../App";
 
 export type Props = {
   navigation: any;
@@ -17,10 +19,28 @@ const ViewStyled = styled(View);
 const TextStyled = styled(Text);
 
 const RequestDetailScreen: ScreenComponent<Props> = (navigation: any) => {
+  const user = useContext(UserContext);
   const data = navigation?.route.params as FSTripRequest;
   const [currentStatus, setCurrentStatus] = useState<string>(data.status);
 
   const buttonType: { [key: string]: any } = {
+    WAITING: (
+      <Center>
+        {user?.role === "user" ? (
+          <Button
+            borderRadius={50}
+            w="80%"
+            colorScheme="indigo"
+            onPress={() => {
+              requestTrip(user?.email, data.id);
+              navigation.navigate("UserScreen" as never);
+            }}
+          >
+            REQUEST TRIP
+          </Button>
+        ) : null}
+      </Center>
+    ),
     REQUEST: (
       <Center>
         <Button

@@ -14,7 +14,6 @@ import { UserContext } from "../App";
 export type Props = {};
 
 const BikerRequestListScreen: React.FC<Props> = () => {
-  const user = useContext(UserContext);
   const navigation = useNavigation();
   const [requestList, setRequestList] = useState<FSTripRequest[] | null>([]);
 
@@ -44,8 +43,10 @@ const BikerRequestListScreen: React.FC<Props> = () => {
                   tripData={item}
                   key={index}
                   onPress={() => {
-                    requestTrip(user?.email, item.id);
-                    navigation.navigate("UserScreen" as never);
+                    navigation.navigate(
+                      "RequestDetailScreen" as never,
+                      item as never
+                    );
                   }}
                 />
               </Box>

@@ -33,7 +33,7 @@ const RequestDetailScreen: ScreenComponent<Props> = (navigation: any) => {
             colorScheme="indigo"
             onPress={() => {
               requestTrip(user?.email, data.id);
-              navigation.navigate("UserScreen" as never);
+              navigation.navigation.navigate("UserScreen" as never);
             }}
           >
             REQUEST TRIP

@@ -1,16 +1,20 @@
 import { Text, View } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { FSTripRequest } from "../types/trip";
-import { getRequestedTripsByStatus } from "../services/firebase/firestore/requestStore/requestStore.operations";
+import {
+  getRequestedTripsByStatus,
+  updateTripStatus,
+} from "../services/firebase/firestore/requestStore/requestStore.operations";
 import { UserContext } from "../App";
-import TripRequestedCard from "../components/TripRequestedCard/TripRequestedCard";
 import { Box, FlatList } from "native-base";
 import TripRequestCard from "../components/TripRequestCard/TripRequestCard";
+import { useNavigation } from "@react-navigation/native";
 
 export type Props = {};
 
 const MyRequestListScreen: React.FC<Props> = () => {
   const user = useContext(UserContext);
+  const navigation = useNavigation();
   const [requestList, setRequestList] = useState<FSTripRequest[] | null>([]);
 
   useEffect(() => {

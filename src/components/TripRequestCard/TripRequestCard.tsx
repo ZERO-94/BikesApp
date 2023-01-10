@@ -42,6 +42,11 @@ const TripRequestCard: React.FC<Props> = ({ tripData, onPress }) => {
               <TextStyled className="font-bold">Picking time:</TextStyled>
             </TextStyled>
             <TextStyled>{tripData?.bookingTime}</TextStyled>
+            <TextStyled className="mb-1">
+              <TextStyled className="font-bold">
+                Status: {tripData?.status}
+              </TextStyled>
+            </TextStyled>
           </Box>
         </Flex>
       </Box>

@@ -13,7 +13,11 @@ const Tab = createBottomTabNavigator();
 
 const BikerStack: React.FC<{}> = () => {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      screenOptions={{
+        unmountOnBlur: true,
+      }}
+    >
       <Tab.Screen
         name="BikerScreen"
         options={{

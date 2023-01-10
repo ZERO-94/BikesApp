@@ -1,9 +1,11 @@
-import { View } from "react-native";
+import { Text, View } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { FSTripRequest } from "../types/trip";
 import { getRequestedTripsByStatus } from "../services/firebase/firestore/requestStore/requestStore.operations";
 import { UserContext } from "../App";
 import TripRequestedCard from "../components/TripRequestedCard/TripRequestedCard";
+import { Box, FlatList } from "native-base";
+import TripRequestCard from "../components/TripRequestCard/TripRequestCard";
 
 export type Props = {};
 
@@ -12,7 +14,7 @@ const MyRequestListScreen: React.FC<Props> = () => {
   const [requestList, setRequestList] = useState<FSTripRequest[] | null>([]);
 
   useEffect(() => {
-    getRequestedTripsByStatus(user?.email, "REQUEST").then(
+    getRequestedTripsByStatus(user?.email, ["REQUEST", "WAITING"]).then(
       (requestListData: FSTripRequest[]) => {
         setRequestList(requestListData);
       }
@@ -20,10 +22,40 @@ const MyRequestListScreen: React.FC<Props> = () => {
   }, []);
 
   return (
-    <View style={{ justifyContent: "center", alignItems: "center" }}>
-      {requestList?.map((tripData, index) => (
-        <TripRequestedCard tripData={tripData} key={index} />
-      ))}
+    <View
+      style={{
+        justifyContent: "center",
+        alignItems: "center",
+        paddingHorizontal: 20,
+      }}
+    >
+      <Box style={{ marginTop: 28 }} w="100%">
+        <Text
+          style={{
+            fontSize: 24,
+            textAlign: "center",
+            fontWeight: "bold",
+            marginBottom: 10,
+          }}
+        >
+          My Request List
+        </Text>
+        <FlatList
+          w="100%"
+          data={requestList}
+          renderItem={({ item, index }) => {
+            return (
+              <Box marginBottom={5}>
+                <TripRequestCard
+                  tripData={item}
+                  key={index}
+                  onPress={() => {}}
+                />
+              </Box>
+            );
+          }}
+        />
+      </Box>
     </View>
   );
 };

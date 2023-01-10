@@ -5,32 +5,94 @@ import CreateRequestScreen from "../screens/CreateRequestScreen";
 import MyRequestListScreen from "../screens/MyRequestListScreen";
 import RequestDetailScreen from "../screens/RequestDetailScreen";
 import AcceptedRequestListScreen from "../screens/AcceptedRequestListScreen";
-import OnGoingTripScreen from "../screens/OnGoingTripScreen";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
 const BikerStack: React.FC<{}> = () => {
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="BikerScreen" component={BikerScreen} />
-      <Stack.Screen
+    <Tab.Navigator>
+      <Tab.Screen
+        name="BikerScreen"
+        options={{
+          title: "Home",
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="home" size={size} color={color} />
+          ),
+        }}
+        component={BikerScreen}
+      />
+      <Tab.Screen
         name="CreateRequestScreen"
+        options={{
+          title: "Create request",
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons
+              name="file-document"
+              size={size}
+              color={color}
+            />
+          ),
+        }}
         component={CreateRequestScreen}
       />
-      <Stack.Screen
+      <Tab.Screen
         name="MyRequestListScreen"
-        component={MyRequestListScreen}
+        options={{
+          title: "My requests",
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons
+              name="file-document-multiple-outline"
+              size={size}
+              color={color}
+            />
+          ),
+        }}
+        component={() => (
+          <Stack.Navigator>
+            <Stack.Screen
+              name="MyRequestListScreen"
+              options={{ headerShown: false }}
+              component={MyRequestListScreen}
+            />
+            <Stack.Screen
+              name="RequestDetailScreen"
+              options={{ title: "Request detail" }}
+              component={RequestDetailScreen}
+            />
+          </Stack.Navigator>
+        )}
       />
-      <Stack.Screen
-        name="RequestDetailScreen"
-        component={RequestDetailScreen}
-      />
-      <Stack.Screen
+      <Tab.Screen
         name="AcceptedRequestListScreen"
-        component={AcceptedRequestListScreen}
+        options={{
+          title: "Accept requests",
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons
+              name="sticker-check-outline"
+              size={size}
+              color={color}
+            />
+          ),
+        }}
+        component={() => (
+          <Stack.Navigator>
+            <Stack.Screen
+              name="AcceptedRequestListScreen"
+              options={{ headerShown: false }}
+              component={AcceptedRequestListScreen}
+            />
+            <Stack.Screen
+              name="RequestDetailScreen"
+              options={{ title: "Request detail" }}
+              component={RequestDetailScreen}
+            />
+          </Stack.Navigator>
+        )}
       />
-      <Stack.Screen name="OnGoingTripScreen" component={OnGoingTripScreen} />
-    </Stack.Navigator>
+    </Tab.Navigator>
   );
 };
 

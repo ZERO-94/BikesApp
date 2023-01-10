@@ -1,7 +1,6 @@
 import React from "react";
 import { View, Text, Button } from "react-native";
 import { FSTripRequest } from "../types/trip";
-import { ScreenComponent } from "@react-navigation";
 import {
   updateTripStatus,
   rejectTrip,
@@ -10,7 +9,7 @@ export type Props = {
   navigation: any;
 };
 
-const OnGoingTripScreen: ScreenComponent<Props> = (navigation: any) => {
+const OnGoingTripScreen: React.FC<Props> = (navigation: any) => {
   console.log(navigation.navigation);
   const data = navigation?.route.params as FSTripRequest;
 

@@ -1,4 +1,4 @@
-import { View, Button } from "react-native";
+import { View } from "react-native";
 import React, { useState } from "react";
 import SelectDropdown from "react-native-select-dropdown";
 import { Text } from "react-native";
@@ -7,6 +7,7 @@ import { UserContext } from "../../App";
 import RNDateTimePicker from "@react-native-community/datetimepicker";
 import { createRequest } from "../../services/firebase/firestore/requestStore/requestStore.operations";
 import { useNavigation } from "@react-navigation/native";
+import { Box, FormControl, Button, Flex } from "native-base";
 
 const locations = ["Đại học FPT", "Vinhome Grand Park", "KTX Làng Đại học"];
 
@@ -31,33 +32,67 @@ const CreateRequestForm: React.FC<Props> = () => {
         bookingTime: bookingTime.toUTCString(),
         id: "",
       });
-      navigation.goBack();
-    } catch (e: any) {}
+      navigation.navigate("MyRequestListScreen" as never);
+    } catch (e: any) {
+      console.log(e);
+    }
   };
 
   return (
-    <View>
-      <Text>From: </Text>
-      <SelectDropdown
-        data={locations.filter((location) => location !== toLocation)}
-        onSelect={(item: string) => setFromLocation(item as string)}
-        onChangeSearchInputText={() => {}}
-        defaultValue={locations[0]}
-      />
-      <Text>To: </Text>
-      <SelectDropdown
-        data={locations.filter((location) => location !== fromLocation)}
-        onSelect={(item: string) => setToLocation(item as string)}
-        onChangeSearchInputText={() => {}}
-        defaultValue={locations[1]}
-      />
-      <Text>Picking time: </Text>
-      <RNDateTimePicker
-        mode="datetime"
-        value={bookingTime}
-        onChange={(event, date) => setBookingTime(date as Date)}
-      />
-      <Button onPress={() => attemptCreateRequest()} title={"Create"} />
+    <View
+      style={{
+        backgroundColor: "white",
+        paddingHorizontal: 15,
+        paddingTop: 25,
+        paddingBottom: 35,
+        borderRadius: 10,
+      }}
+    >
+      <Text
+        style={{
+          textAlign: "center",
+          fontSize: 24,
+          fontWeight: "bold",
+        }}
+      >
+        Create request form
+      </Text>
+      <Box marginTop={4}>
+        <FormControl.Label>From:</FormControl.Label>
+        <SelectDropdown
+          buttonStyle={{ width: "100%", height: 36, borderRadius: 5 }}
+          data={locations.filter((location) => location !== toLocation)}
+          onSelect={(item: string) => setFromLocation(item as string)}
+          onChangeSearchInputText={() => {}}
+          defaultValue={locations[0]}
+        />
+      </Box>
+      <Box marginTop={4}>
+        <FormControl.Label>To:</FormControl.Label>
+        <SelectDropdown
+          buttonStyle={{ width: "100%", height: 36, borderRadius: 5 }}
+          data={locations.filter((location) => location !== fromLocation)}
+          onSelect={(item: string) => setToLocation(item as string)}
+          onChangeSearchInputText={() => {}}
+          defaultValue={locations[1]}
+        />
+      </Box>
+      <Flex marginTop={7} direction="row" alignItems={"center"}>
+        <Text style={{ fontSize: 18, marginRight: 10 }}>Picking at:</Text>
+        <RNDateTimePicker
+          mode="datetime"
+          value={bookingTime}
+          onChange={(event, date) => setBookingTime(date as Date)}
+        />
+      </Flex>
+      <Button
+        onPress={() => attemptCreateRequest()}
+        marginTop={7}
+        borderRadius={50}
+        colorScheme="indigo"
+      >
+        Submit
+      </Button>
     </View>
   );
 };

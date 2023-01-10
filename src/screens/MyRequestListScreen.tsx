@@ -12,7 +12,7 @@ const MyRequestListScreen: React.FC<Props> = () => {
   const [requestList, setRequestList] = useState<FSTripRequest[] | null>([]);
 
   useEffect(() => {
-    getRequestedTripsByStatus(user?.email, "WAITING").then(
+    getRequestedTripsByStatus(user?.email, "REQUEST").then(
       (requestListData: FSTripRequest[]) => {
         setRequestList(requestListData);
       }

@@ -22,7 +22,10 @@ const UserScreen: React.FC<Props> = () => {
   const navigation = useNavigation();
 
   return (
-    <ScrollView style={{ paddingHorizontal: 20 }}>
+    <ScrollView
+      contentContainerStyle={{ flexGrow: 1 }}
+      style={{ paddingHorizontal: 20 }}
+    >
       <Flex
         direction="row"
         justifyContent={"space-between"}

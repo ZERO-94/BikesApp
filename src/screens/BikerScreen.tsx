@@ -23,7 +23,10 @@ const BikerScreen: React.FC<Props> = () => {
   const user = useContext(UserContext);
 
   return (
-    <ScrollView style={{ paddingHorizontal: 20 }}>
+    <ScrollView
+      contentContainerStyle={{ flexGrow: 1 }}
+      style={{ paddingHorizontal: 20 }}
+    >
       <Flex
         direction="row"
         justifyContent={"space-between"}
@@ -59,7 +62,7 @@ const BikerScreen: React.FC<Props> = () => {
       <Center marginTop={3}>
         <Flex direction="row">
           <Button
-            w={"45%"}
+            w={"48%"}
             colorScheme="indigo"
             borderRadius={50}
             onPress={() => navigation.navigate("MyRequestListScreen" as never)}
@@ -67,10 +70,10 @@ const BikerScreen: React.FC<Props> = () => {
             My requested trip
           </Button>
           <Button
-            w={"45%"}
+            w={"48%"}
             colorScheme="indigo"
             borderRadius={50}
-            marginLeft={3}
+            marginLeft={1}
             onPress={() =>
               navigation.navigate("AcceptedRequestListScreen" as never)
             }

@@ -44,6 +44,8 @@ const RequestDetailScreen: ScreenComponent<Props> = (navigation: any) => {
     REQUEST: (
       <Center>
         <Button
+          mt="4"
+          mb="4"
           borderRadius={50}
           w="80%"
           colorScheme="indigo"
